@@ -1,269 +1,325 @@
-# -<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>اختبار — أسئلة 1 إلى 10 (رخصة مهنية — مستوى متقدم)</title>
+<meta charset="UTF-8">
+<title>اختبار الرخصة المهنية – 20 سؤال</title>
 <style>
-:root{ --bg:#f4f7fb; --card:#ffffff; --primary:#2563eb; --accent:#06b6d4; --success:#16a34a; --danger:#ef4444; --muted:#6b7280; --radius:14px; }
-*{box-sizing:border-box}
-body{ margin:0; font-family: "Noto Kufi Arabic", "Segoe UI", Tahoma, system-ui, -apple-system; background:linear-gradient(180deg,#fbfdff, #eef6ff); color:#0b1220; direction:rtl; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-.container{max-width:1050px;margin:28px auto;padding:20px}
-.header{ background:var(--card); border-radius:var(--radius); padding:18px 20px; box-shadow:0 10px 30px rgba(2,6,23,0.06); display:flex; flex-direction:column; gap:8px; align-items:center; text-align:center; }
-.h-title{font-size:1.4rem;font-weight:800;color:var(--primary)}
-.h-sub{color:var(--muted);font-weight:600}
-.grid{margin-top:18px;display:grid;grid-template-columns:1fr;gap:14px}
-.card{ background:var(--card); border-radius:12px;padding:14px 16px; box-shadow:0 8px 26px rgba(2,6,23,0.06); transition:transform .22s, box-shadow .22s; overflow:visible; }
-.card:hover{transform:translateY(-4px)}
-.q-head{display:flex;align-items:center;gap:12px;justify-content:space-between}
-.q-num{background:linear-gradient(135deg,var(--accent),var(--primary));color:#fff;padding:6px 12px;border-radius:10px;font-weight:800}
-.sentence{margin:12px 0 14px;font-size:1.05rem;color:#0b1220;line-height:1.5}
-/* خيارات */ .choices{display:flex;flex-wrap:wrap;gap:10px} .choice{ flex:1 1 240px; padding:12px 14px;border-radius:10px; border:1px solid rgba(15,23,42,0.06); background:#fbfdff;color:#08203a;font-weight:700; cursor:pointer;text-align:center;transition:all .18s; user-select:none; } .choice:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.06)} .choice.correct{background:linear-gradient(90deg,#4ade80,#16a34a);color:#04200a;box-shadow:0 10px 30px rgba(16,185,129,0.12)} .choice.wrong{background:linear-gradient(90deg,#fda4af,#ef4444);color:#3b0a0a;box-shadow:0 10px 30px rgba(239,68,68,0.12)} .choice.disabled{opacity:.86;cursor:default;transform:none;box-shadow:none}
-/* شرح منبثق */ .pop{ margin-top:12px;padding:12px;border-radius:10px;background:#ffffff;border:1px solid #e6eef8; box-shadow:0 10px 30px rgba(2,6,23,0.04); animation:pop .36s ease forwards; direction:rtl;color:#0b1220; } .pop strong{display:block;margin-bottom:6px;} @keyframes pop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-/* شريط التحكم */ .controls{ display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:18px; flex-wrap:wrap; } .btn{ background:var(--primary);color:#fff;padding:10px 14px;border-radius:12px;border:0;font-weight:800;cursor:pointer; box-shadow:0 8px 22px rgba(37,99,235,0.12); } .btn.secondary{background:#fff;color:var(--primary);border:1px solid rgba(37,99,235,0.12)} .results{font-weight:800;color:#0b1220} .footer{margin-top:22px;text-align:center;color:var(--muted);font-size:0.98rem;padding-bottom:30px}
-/* شاشة النتيجة الكبرى */ .overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.46);z-index:9999} .panel{background:#fff;padding:20px;border-radius:14px;max-width:520px;width:92%;text-align:center;box-shadow:0 20px 50px rgba(2,6,23,0.3)} .panel h2{margin:6px 0 10px;color:var(--primary)} .panel .score{font-size:2.6rem;font-weight:900;color:var(--success)} .panel .break{margin-top:10px;color:var(--muted)} .panel button{margin-top:14px}
-/* responsive */ @media (min-width:900px){ .grid{grid-template-columns:1fr 1fr} .choice{flex:1 1 48%} }
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+.card {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 7px #ccc;
+}
+.choice {
+    padding: 10px;
+    background: #eee;
+    margin: 6px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+}
+.choice.correct {
+    background: #8de38d !important;
+}
+.choice.wrong {
+    background: #ff8c8c !important;
+}
+.choice.disabled {
+    pointer-events: none;
+    opacity: .6;
+}
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px #0008;
+    z-index: 9999;
+}
+.popup button {
+    margin-top: 10px;
+}
+.summary {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+button {
+    padding: 10px 15px;
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <div class="h-title">اختبار — أسئلة 1 إلى 10 (رخصة مهنية — مستوى متقدم)</div>
-    <div class="h-sub">مجال: مواقف تربوية، تقويم، إدارة صف، ممارسات مهنية</div>
-    <div id="summary" class="h-sub">إجابات صحيحة: 0 من 10</div>
-  </div>
 
-  <div class="controls">
-    <div class="results">النتيجة النهائية: <span id="finalScore">0 / 10</span></div>
-    <div style="display:flex;gap:10px;">
-      <button id="showAll" class="btn">عرض النتيجة</button>
-      <button id="resetBtn" class="btn secondary">إعادة الاختبار</button>
-    </div>
-  </div>
+<h1>اختبار الرخصة المهنية – 20 سؤالًا</h1>
 
-  <div id="grid" class="grid" style="margin-top:18px;"></div>
+<div id="container"></div>
 
-  <div class="footer">إعداد: نموذج مخصَّص — بالتوفيق للجميع</div>
-</div>
-
-<!-- Overlay النتيجة -->
-<div id="overlay" class="overlay">
-  <div class="panel">
-    <h2>النتيجة النهائية</h2>
-    <div class="score" id="finalScoreBig">0 / 10</div>
-    <div class="break" id="finalBreak">لم يتم الإجابة بعد.</div>
-    <button id="closeOverlay" class="btn secondary">حسناً</button>
-  </div>
+<div class="summary">
+    <div>عدد الإجابات الصحيحة: <span id="correct">0</span> / 20</div>
+    <button onclick="resetExam()">إعادة الاختبار</button>
 </div>
 
 <script>
-/* مصفوفة الأسئلة (1-10) — كل سؤال: q, choices, correct (index 0..3), explanation */
-const questions = [
-/* 1 */
-{ q:"أثناء درس تعاوني، لاحظ المعلم أن مجموعة من الطلاب تعتمد على طالب واحد لإنجاز المهمة بينما الآخرون يراقبون فقط. ما الإجراء التربوي الأكثر فاعلية لضمان المشاركة المتوازنة؟",
-  choices:[
-    "إعادة توزيع الأدوار داخل المجموعة بشكل محدد وواضح",
-    "زيادة وقت المهمة دون أي تعديل في البنية",
-    "تغيير الطالب المتفوق إلى مجموعة أخرى",
-    "تقليل حجم المهمة لتبدو أسهل على الجميع"
-  ],
-  correct:0,
-  explanation:"إعادة توزيع الأدوار يسهم في ضمان المشاركة النشطة لجميع أفراد المجموعة ويمنع الاتكالية."
+
+// ==========================
+// 20 سؤال جديد صعبة جدًا
+// ==========================
+
+const QUESTIONS = [
+{
+q: "أثناء درس تعلّم قائم على المشكلات، لاحظ المعلم أن الطلاب يقترحون حلولًا جاهزة دون تحليل الأسباب. ما الإجراء الأدق لرفع مستوى التفكير؟",
+choices: ["طلب تحديد الفرضيات ومبرراتها", "إعطاء مزيد من الوقت فقط", "تحويل الدرس لأسئلة مباشرة", "تقليل صعوبة المهمة"],
+correct: 0,
+explanation: "تحليل الفرضيات يجبر الطالب على التفكير العميق وليس الاكتفاء بالحلول السطحية."
 },
-/* 2 */
-{ q:"أجرى المعلم اختبارًا تشخيصيًا في بداية الوحدة، ولاحظ أن معظم الطلاب يمتلكون مفاهيم خاطئة متشابهة حول المحتوى. ما الخطوة الأكثر دقة قبل بدء التدريس؟",
-  choices:[
-    "معالجة المفاهيم الخاطئة بشكل صريح قبل تقديم المحتوى الجديد",
-    "الانتقال مباشرة إلى المحتوى مع إعطاء أمثلة إضافية فقط",
-    "تأجيل معالجة الأخطاء إلى نهاية الوحدة",
-    "تقليل مستوى الأسئلة لتناسب فهم الطلاب الحالي"
-  ],
-  correct:0,
-  explanation:"معالجة المفاهيم الخاطئة قبل بداية التدريس تمنع ترسيخ التصورات الخاطئة أثناء التعلم."
+
+{
+q: "يستخدم معلم طريقة المحاضرة دائمًا لشرح المفاهيم المجردة، مما أدى لانخفاض فهم الطلاب. ما الحل الأنسب تربويًا؟",
+choices: ["دمج النماذج والمحاكاة في الشرح", "إطالة زمن الحصة", "زيادة عدد الواجبات", "الاكتفاء بالشرح اللفظي"],
+correct: 0,
+explanation: "المفاهيم المجردة تحتاج تمثيلًا بصريًا أو نماذج لتوضيحها."
 },
-/* 3 */
-{ q:"لاحظ المعلم أن طالبًا يشارك بفعالية في الأنشطة الشفوية، لكنه يُظهر ضعفًا واضحًا في المهام الكتابية. ما التفسير التربوي الأكثر احتمالًا؟",
-  choices:[
-    "وجود فروق فردية بين أنماط التعبير لدى الطالب",
-    "ضعف في الدافعية العامة لدى الطالب",
-    "عدم مناسبة مستوى المحتوى للطلاب",
-    "قلة وضوح التعليمات في الحصة"
-  ],
-  correct:0,
-  explanation:"تفاوت الأداء بين التعبير الشفوي والكتابي مؤشر على فروق فردية في أنماط التعبير والقدرات."
+
+{
+q: "لاحظ المعلم أن طالبًا يعيد نفس الخطأ في كل مهمة رغم حصوله على التغذية الراجعة. ما السبب الأكثر احتمالاً؟",
+choices: ["التغذية الراجعة غير محددة", "الطالب غير مهتم بالتعلم", "صعوبة المحتوى", "قلة الوقت التدريبي"],
+correct: 0,
+explanation: "التغذية الراجعة يجب أن تكون دقيقة ومباشرة لتغيير الأداء."
 },
-/* 4 */
-{ q:"أثناء نقاش صفّي، لاحظ المعلم أن الطلاب يقدمون إجابات سطحية على الرغم من معرفتهم بالمحتوى. ما النوع الأنسب من الأسئلة لرفع مستوى التفكير؟",
-  choices:[
-    "أسئلة تحليلية تتطلب تبرير الأدلة",
-    "أسئلة تذكر مباشرة",
-    "أسئلة نعم/لا لتسريع المشاركة",
-    "أسئلة مطابقة بسيطة"
-  ],
-  correct:0,
-  explanation:"الأسئلة التحليلية ترفع مستوى التفكير من السطحي إلى العميق عبر طلب تبرير الأدلة."
+
+{
+q: "عند تحليل نتائج الاختبار، وجد المعلم تباينًا كبيرًا بين أجزاء الاختبار. ما المؤشر التربوي المحتمل؟",
+choices: ["ضعف في صدق البناء", "زيادة دافعية الطلاب", "ارتفاع الثبات", "مناسبة شاملة للمحتوى"],
+correct: 0,
+explanation: "التباين الكبير يشير لخلل في الاتساق الداخلي وضعف صدق البناء."
 },
-/* 5 */
-{ q:"أظهر الطلاب قدرة على تطبيق مهارة معينة داخل الدرس، لكنهم فشلوا في استخدامها في مهمة حياتية مشابهة. ما المفهوم الأصح لتفسير ذلك؟",
-  choices:[
-    "ضعف في الانتقال المعرفي",
-    "قصور في مهارات التذكر الأولي",
-    "عدم مناسبة الاستراتيجية المستخدمة",
-    "انخفاض الدافعية داخل الصف"
-  ],
-  correct:0,
-  explanation:"عدم القدرة على نقل المهارة إلى سياق جديد يشير إلى ضعف في القدرة على الانتقال المعرفي (transfer)."
+
+{
+q: "إذا كان الطالب ينجح في تطبيق المهارة داخل الصف ويفشل خارجها، فما السبب التربوي؟",
+choices: ["ضعف في النقل المعرفي", "انخفاض مستوى الذكاء", "عدم مناسبة الأهداف", "قلة الواجبات"],
+correct: 0,
+explanation: "النقل المعرفي يعني استخدام المهارة في سياقات جديدة، وهو ما لم يتحقق."
 },
-/* 6 */
-{ q:"في أثناء تنفيذ نشاط جماعي، لاحظ المعلم أن مهمات الطلاب تتداخل ولا توجد أدوار واضحة. ما الحل الأكثر فاعلية؟",
-  choices:[
-    "تصميم أدوار محدّدة لكل طالب مرتبطة بمكونات المهمة",
-    "توفير وقت أطول لنفس النشاط دون تغيير البنية",
-    "تقليل عدد الطلاب في المجموعات فقط",
-    "الاعتماد على الطلاب لتوزيع الأعمال بأنفسهم"
-  ],
-  correct:0,
-  explanation:"تحديد أدوار واضحة لكل عضو يقلل التداخل ويجعل التقييم والمسؤولية أوضح."
+
+{
+q: "عند استخدام التعلم التعاوني، لاحظ المعلم أن بعض الطلاب لا يقدمون حججًا منطقية. كيف يعالج ذلك؟",
+choices: ["تدريب الطلاب على مهارات المناقشة", "تقليل عدد المجموعات", "إلغاء الطريقة", "زيادة الوقت"],
+correct: 0,
+explanation: "تعليم مهارات الحوار شرط لنجاح التعلم التعاوني."
 },
-/* 7 */
-{ q:"أثناء الملاحظة الصفية، لاحظ المشرف أن المعلم يستخدم استراتيجية واحدة في جميع الحصص دون تغيير. ما العيب التربوي الأكثر احتمالًا لهذا الأسلوب؟",
-  choices:[
-    "انخفاض تباين المثيرات مما يقلل مشاركة الطلاب",
-    "زيادة الوقت الضائع أثناء الدرس",
-    "ارتفاع عبء التخطيط على المعلم",
-    "صعوبة تقييم أداء الطلاب"
-  ],
-  correct:0,
-  explanation:"استخدام استراتيجية واحدة يسبب رتابة ويقلل من تباين المحفزات الضروري للحفاظ على انتباه الطلاب."
+
+{
+q: "أثناء تنفيذ استراتيجية العصف الذهني، بدأ الطلاب في نقد أفكار بعضهم. كيف يعالج المعلم الموقف؟",
+choices: ["التأكيد على قاعدة تعليق النقد", "تقليل عدد الأفكار", "منح وقت إضافي", "نقل الطلاب لمجموعات أخرى"],
+correct: 0,
+explanation: "العصف الذهني يعتمد على حرية الطرح بدون نقد."
 },
-/* 8 */
-{ q:"إذا كان معامل الثبات لاختبار معيّن منخفضًا، ما النتيجة الأكثر دقة؟",
-  choices:[
-    "نتائج الاختبار لا يمكن الاعتماد عليها لاتخاذ قرارات تربوية",
-    "الاختبار صعب جدًا ولا يناسب مستوى الطلاب",
-    "الأسئلة غير شاملة لجميع النواتج",
-    "الاختبار يقيس مهارات مرتفعة"
-  ],
-  correct:0,
-  explanation:"الثبات المنخفض يعني أن النتائج غير مستقرة بين مرات القياس وبالتالي غير موثوقة للاعتماد عليها."
+
+{
+q: "إذا أظهر الطلاب قدرة على الفهم لكنهّم يفشلون في التحليل، فما الاستراتيجية الأنسب؟",
+choices: ["طرح أسئلة عليا موجهة", "الاكتفاء بالأمثلة", "زيادة الحفظ", "تقليل متطلبات الدرس"],
+correct: 0,
+explanation: "الأسئلة العليا تدفع المتعلم للتحليل والتفسير."
 },
-/* 9 */
-{ q:"أثناء حل المشكلات، يقف الطلاب عند خطوة واحدة ولا ينتقلون للتي تليها رغم معرفتهم بالإجراء. ما الاستراتيجية الأنسب لمعالجة ذلك؟",
-  choices:[
-    "التسقيل التدريجي مع تقليل التلميحات بمرور الوقت",
-    "زيادة عدد الأمثلة المحلولة فقط",
-    "إعطاء الحل النهائي للطلاب لنسخه",
-    "تقليل مستوى التعقيد في الأنشطة"
-  ],
-  correct:0,
-  explanation:"التسقيل (scaffolding) يمنح دعمًا مرحليًا ثم يسحبه تدريجيًا لتطوير الاستقلالية."
+
+{
+q: "في موقف تعلّم فردي، يواجه الطالب صعوبة في تنظيم خطوات النشاط. ما الدعم المناسب؟",
+choices: ["التسقيل التدريجي", "زيادة العمل الفردي", "تغيير المحتوى", "تقليل الأنشطة"],
+correct: 0,
+explanation: "التسقيل يساعد في تنظيم الخطوات حتى يصل الطالب للاستقلالية."
 },
-/* 10 */
-{ q:"لاحظ المعلم أثناء النقاش أن الطلاب يقدمون إجابات صحيحة لكن بلا تفسير. ما الإجراءات التي تعزز التفكير العميق؟",
-  choices:[
-    "طلب تبرير الإجابة وشرح كيفية الوصول إليها",
-    "زيادة عدد الأسئلة لإشغال الطلاب",
-    "تقليل وقت التفكير حتى يتجاوزوا الإجابات الخاطئة",
-    "إعطاء درجات فقط للإجابة الصحيحة دون الاهتمام بالتفسير"
-  ],
-  correct:0,
-  explanation:"طلب التبرير يحفز الطالب على التفكير في خطوات حل المسألة وما وراء المعرفة."
+
+{
+q: "لاحظ المعلم أن الطلاب يتذكرون المفهوم داخل الدرس وينسونه بعد أيام. ما السبب المحتمل؟",
+choices: ["ضعف في الترميز العميق", "عدم وجود دافعية", "الاختبار صعب جدًا", "قلة الأمثلة"],
+correct: 0,
+explanation: "الترميز السطحي يؤدي لنسيان سريع، ويلزم ربط المعنى والتطبيق."
+},
+
+{
+q: "إذا أراد المعلم التأكد من صدق المحك لاختبار ما، فماذا يفعل؟",
+choices: ["مقارنة النتائج بأداء الطلاب الفعلي", "زيادة عدد الأسئلة", "إطالة زمن الاختبار", "تغيير طريقة التصحيح"],
+correct: 0,
+explanation: "صدق المحك يعتمد على مقارنة نتائج الاختبار بمؤشر خارجي موثوق."
+},
+
+{
+q: "استخدم المعلم التعلم المعكوس، لكن الطلاب لم يشاهدوا المحتوى قبل الدرس. ما الحل الأنسب؟",
+choices: ["تصميم نشاط تحفيزي يسبق الفيديو", "تقليل طول الفيديو فقط", "زيادة الواجبات", "تغيير الطريقة بالكامل"],
+correct: 0,
+explanation: "النشاط التحفيزي يرفع مشاركة الطلاب قبل الدرس."
+},
+
+{
+q: "طالب يرفض المشاركة في الأنشطة الجماعية رغم قدرته، ما التفسير الأنسب؟",
+choices: ["قلة الثقة بالنفس", "قلة الذكاء الاجتماعي", "صعوبة المحتوى", "ضعف التحصيل"],
+correct: 0,
+explanation: "الثقة بالنفس تؤثر مباشرة على المشاركة."
+},
+
+{
+q: "أثناء التقويم البديل، قدم الطالب منتجًا عامًا دون عمق. ما السبب المحتمل؟",
+choices: ["عدم وضوح معايير التقييم", "قلة الوقت", "ضعف القدرات", "اختيار استراتيجية خاطئة"],
+correct: 0,
+explanation: "غياب معايير دقيقة يؤدي لمنتج غير ذي جودة."
+},
+
+{
+q: "أراد المعلم تطوير مهارة حل المشكلات، فما النشاط الأدق؟",
+choices: ["تقديم مشكلات غير روتينية", "زيادة التمارين التقليدية", "تكرار الأمثلة", "تقليل الخطوات"],
+correct: 0,
+explanation: "المشكلات غير الروتينية تنمّي التفكير العالي."
+},
+
+{
+q: "في اختبار موضوعي، وجد المعلم أن جميع الطلاب اختاروا نفس الخيار الخاطئ. ما الفرضية الأقرب؟",
+choices: ["وجود خطأ في صياغة السؤال", "انخفاض الذكاء", "ضعف الوقت", "صعوبة المحتوى"],
+correct: 0,
+explanation: "الإجماع على خطأ معين يدل غالبًا على مشكلة في السؤال نفسه."
+},
+
+{
+q: "لاحظ المعلم أن طالبًا لديه معرفة جيدة لكنه يفشل في التعبير الشفهي. ما التفسير الأقرب؟",
+choices: ["ضعف مهارات التواصل", "ضعف المحتوى", "قلة الواجبات", "عدم وجود استراتيجيات"],
+correct: 0,
+explanation: "التواصل الشفهي مهارة مستقلة عن المعرفة."
+},
+
+{
+q: "أثناء تقييم الأداء العملي، وجد المعلم تفاوتًا بين المصححين. ما السبب؟",
+choices: ["ضعف في ثبات المحكمين", "قلة الوقت", "جودة عالية جدًا", "اختبار صعب"],
+correct: 0,
+explanation: "تفاوت الأحكام يعني انخفاض ثبات المحكمين."
+},
+
+{
+q: "إذا أراد المعلم دعم مهارات ما وراء المعرفة، فما أفضل إجراء؟",
+choices: ["تشجيع الطالب على التفكير بصوت مسموع", "زيادة أمثلة الحفظ", "تقليل الأنشطة", "تقديم الإجابات مباشرة"],
+correct: 0,
+explanation: "التفكير بصوت مسموع يعزز الوعي بعمليات التفكير."
+},
+
+{
+q: "عند تنفيذ التعلم الذاتي، وجد المعلم أن الطلاب يحتاجون توجيهًا مستمرًا. ما السبب؟",
+choices: ["ضعف مهارات التنظيم الذاتي", "قلة الدافعية", "صعوبة المحتوى", "وقت غير كاف"],
+correct: 0,
+explanation: "التنظيم الذاتي عنصر أساسي في التعلم الذاتي."
 }
+
 ];
 
-/* إنشاء البطاقات */
-const grid = document.getElementById('grid');
+// =======================================================
+// إنشاء البطاقات
+// =======================================================
 
-questions.forEach((Q, idx) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <div class="q-head">
-      <div class="q-num">س ${idx+1}</div>
-      <div style="font-weight:700;color:var(--muted)">سؤال ${idx+1}</div>
-    </div>
-    <div class="sentence">${Q.q}</div>
-    <div class="choices"></div>
-  `;
-  const choicesDiv = card.querySelector('.choices');
-  Q.choices.forEach((c, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'choice';
-    const label = ['أ','ب','ج','د'][i] || (i+1);
-    btn.innerText = label + ' — ' + c;
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('disabled')) return;
-      // تعطيل الخيارات بعد الاختيار
-      Array.from(choicesDiv.children).forEach(x => x.classList.add('disabled'));
-      if (i === Q.correct) {
-        btn.classList.add('correct');
-        showPop(card, '<strong>إجابة صحيحة</strong>' + '<div>' + Q.explanation + '</div>');
-      } else {
-        btn.classList.add('wrong');
-        const correctBtn = choicesDiv.children[Q.correct];
-        if (correctBtn) correctBtn.classList.add('correct');
-        showPop(card, '<strong>إجابة خاطئة</strong>' + '<div>' + Q.explanation + '</div>');
-      }
-      updateSummary();
+const container = document.getElementById("container");
+
+QUESTIONS.forEach((Q, idx) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.answered = "";
+
+    const qEl = document.createElement("h3");
+    qEl.textContent = `${idx + 1}. ${Q.q}`;
+    card.appendChild(qEl);
+
+    const choicesDiv = document.createElement("div");
+
+    Q.choices.forEach((ch, i) => {
+        const btn = document.createElement("div");
+        btn.className = "choice";
+        btn.textContent = ch;
+
+        btn.addEventListener("click", () => {
+
+            if (btn.classList.contains("disabled")) return;
+
+            Array.from(choicesDiv.children).forEach(x => x.classList.add("disabled"));
+
+            if (i === Q.correct) {
+                btn.classList.add("correct");
+                card.dataset.answered = "correct";
+
+                showPop(card,
+                    `<strong>إجابة صحيحة ✔</strong><div>${Q.explanation}</div>`
+                );
+
+            } else {
+                btn.classList.add("wrong");
+                choicesDiv.children[Q.correct].classList.add("correct");
+                card.dataset.answered = "wrong";
+
+                showPop(card,
+                    `<strong>إجابة خاطئة ✘</strong><div>${Q.explanation}</div>`
+                );
+            }
+
+            updateSummary();
+        });
+
+        choicesDiv.appendChild(btn);
     });
-    choicesDiv.appendChild(btn);
-  });
-  grid.appendChild(card);
+
+    card.appendChild(choicesDiv);
+    container.appendChild(card);
 });
 
-function showPop(card, html) {
-  const old = card.querySelector('.pop');
-  if (old) old.remove();
-  const p = document.createElement('div');
-  p.className = 'pop';
-  p.innerHTML = html;
-  card.appendChild(p);
+// =======================================================
+// نافذة الشرح
+// =======================================================
+
+function showPop(card, msg) {
+    const pop = document.createElement("div");
+    pop.className = "popup";
+    pop.innerHTML = msg + `<br><button onclick="this.parentElement.remove()">إغلاق</button>`;
+    document.body.appendChild(pop);
 }
+
+// =======================================================
+// حساب الدرجات الصحيح 100%
+// =======================================================
 
 function updateSummary() {
-  const total = questions.length;
-  let correctCount = 0;
-  document.querySelectorAll('.card').forEach((card, idx) => {
-    if (card.querySelector('.choice.correct')) correctCount++;
-  });
-  document.getElementById('summary').innerText = `إجابات صحيحة: ${correctCount} من ${total}`;
-  document.getElementById('finalScore').innerText = `${correctCount} / ${total}`;
-  document.getElementById('finalScoreBig').innerText = `${correctCount} / ${total}`;
+    let correct = 0;
+    document.querySelectorAll(".card").forEach(c => {
+        if (c.dataset.answered === "correct") correct++;
+    });
+    document.getElementById("correct").textContent = correct;
 }
 
-/* عرض النتائج */
-document.getElementById('showAll').addEventListener('click', () => {
-  updateSummary();
-  document.getElementById('overlay').style.display = 'flex';
-  const scoreText = document.getElementById('finalScore').innerText;
-  const scoreNum = Number(scoreText.split('/')[0].trim());
-  const total = questions.length;
-  const panelBreak = document.getElementById('finalBreak');
-  if (scoreNum === total) panelBreak.innerText = 'ممتاز — إجابات جميعها صحيحة!';
-  else if (scoreNum >= Math.ceil(total * 0.75)) panelBreak.innerText = 'جيد جدًا — استمر بالمراجعة!';
-  else if (scoreNum >= Math.ceil(total * 0.5)) panelBreak.innerText = 'متوسط — يحتاج مراجعة.';
-  else panelBreak.innerText = 'ضعيف — أنصح بمراجعة الأساسيات.';
-});
+// =======================================================
+// إعادة الاختبار
+// =======================================================
 
-/* إغلاق overlay */
-document.getElementById('closeOverlay').addEventListener('click', () => {
-  document.getElementById('overlay').style.display = 'none';
-});
+function resetExam() {
+    document.querySelectorAll(".popup").forEach(p => p.remove());
 
-/* إعادة الاختبار */
-document.getElementById('resetBtn').addEventListener('click', () => {
-  document.querySelectorAll('.card').forEach((card, idx) => {
-    card.querySelectorAll('.choice').forEach(btn => {
-      btn.classList.remove('disabled', 'correct', 'wrong');
+    document.querySelectorAll(".card").forEach(card => {
+        card.dataset.answered = "";
+        card.querySelectorAll(".choice").forEach(btn => {
+            btn.classList.remove("disabled", "correct", "wrong");
+        });
     });
-    const pop = card.querySelector('.pop');
-    if (pop) pop.remove();
-  });
-  updateSummary();
-});
 
-/* تهيئة النتيجة الابتدائية */
-updateSummary();
+    updateSummary();
+}
+
 </script>
+
 </body>
 </html>
